@@ -46,8 +46,7 @@ public:
 private:
   ByteStream output_; // the Reassembler writes to this ByteStream
   std::map<uint64_t, std::string> buf_pending_ {};
-  uint64_t expect_index_ {0};
-  uint64_t bytes_pending_ {0};
-  uint64_t close_index_ {0};
+  uint64_t expect_index_ { 0 };
+  uint64_t bytes_pending_ { 0 };
+  uint64_t close_index_ { 0 };
 };
-

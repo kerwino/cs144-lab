@@ -24,18 +24,18 @@ public:
   bool has_error() const { return error_; }; // Has the stream had an error?
 
 protected:
-  bool closed_ {false};
+  bool closed_ { false };
 
   std::queue<std::string> buf_ {};
 
-  uint64_t remove_pos_ {0};
+  uint64_t remove_pos_ { 0 };
 
-  uint64_t bytes_pushed_ {0};
-  uint64_t bytes_buffered_ {0};
-  uint64_t bytes_poped_ {0};
+  uint64_t bytes_pushed_ { 0 };
+  uint64_t bytes_buffered_ { 0 };
+  uint64_t bytes_poped_ { 0 };
 
-  uint64_t capacity_{0};
-  bool error_ {false};
+  uint64_t capacity_ { 0 };
+  bool error_ { false };
 };
 
 class Writer : public ByteStream
@@ -65,4 +65,3 @@ public:
  * from a ByteStream Reader into a string;
  */
 void read( Reader& reader, uint64_t len, std::string& out );
-

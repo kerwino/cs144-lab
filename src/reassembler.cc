@@ -9,6 +9,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 
   if ( is_last_substring ) {
     close_index_ = next_index;
+    // fix: insert a empty data and just a eof signal
     if ( close_index_ == expect_index_ ) {
       output_.writer().close();
     }
@@ -36,11 +37,11 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     --pit;
     uint64_t pit_next_index = pit->first + pit->second.size();
     uint64_t pit_first_index = pit->first;
-    
+
     if ( pit_next_index >= next_index ) {
       return;
     }
-    
+
     if ( pit_next_index > first_index and next_index > pit_next_index ) {
       data = pit->second + data.substr( pit_next_index - first_index );
       buf_pending_.erase( pit );
@@ -69,14 +70,14 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     if ( it->first > expect_index_ ) {
       break;
     }
-    
+
     string real_data = it->second.substr( expect_index_ - it->first );
     output_.writer().push( real_data );
     expect_index_ += real_data.size();
     if ( close_index_ == it->first + it->second.size() ) {
       output_.writer().close();
     }
-    it = buf_pending_.erase( it ); 
+    it = buf_pending_.erase( it );
   }
 
   bytes_pending_ = 0;
@@ -89,4 +90,3 @@ uint64_t Reassembler::bytes_pending() const
 {
   return bytes_pending_;
 }
-

@@ -17,7 +17,7 @@ void Writer::push( string data )
   bytes_buffered_ += data.size();
   bytes_pushed_ += data.size();
 
-  buf_.push( data );
+  buf_.push( move( data ) );
 }
 
 string_view Reader::peek() const
@@ -86,4 +86,3 @@ bool Reader::is_finished() const
 {
   return closed_ and bytes_buffered_ == 0;
 }
-
